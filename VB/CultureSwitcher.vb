@@ -1,4 +1,3 @@
-﻿Imports Microsoft.VisualBasic
 Imports System
 Imports System.Globalization
 Imports System.IO
@@ -6,42 +5,39 @@ Imports System.Threading
 Imports System.Windows.Forms
 
 Namespace SchedulerSwitchLocale
-	Public NotInheritable Class CultureSwitcher
-        Private Shared privateCultureId As String
-		Public Shared Property CultureId() As String
-			Get
-				Return privateCultureId
-			End Get
-			Private Set(ByVal value As String)
-				privateCultureId = value
-			End Set
-		End Property
 
-		Private Sub New()
-		End Sub
-		Public Shared Sub ChangeCulture(ByVal newCultureId As String)
-			If CultureSwitcher.CultureId = newCultureId Then
-				Return
-			End If
+    Public Module CultureSwitcher
 
-			Dim pathSettings As String = Path.Combine(Directory.GetCurrentDirectory(), "culture.ini")
+        Private _CultureId As String
 
-			File.WriteAllText(pathSettings, newCultureId)
-			Application.Restart()
-			Environment.Exit(0)
-		End Sub
+        Public Property CultureId As String
+            Get
+                Return _CultureId
+            End Get
 
-		Public Shared Sub RestoreCulture()
-			Dim pathSettings As String = Path.Combine(Directory.GetCurrentDirectory(), "culture.ini")
+            Private Set(ByVal value As String)
+                _CultureId = value
+            End Set
+        End Property
 
-			If File.Exists(pathSettings) Then
-				CultureId = File.ReadAllText(pathSettings)
-			Else
-				CultureId = "en"
-			End If
+        Public Sub ChangeCulture(ByVal newCultureId As String)
+            If Equals(CultureId, newCultureId) Then Return
+            Dim pathSettings As String = Path.Combine(Directory.GetCurrentDirectory(), "culture.ini")
+            File.WriteAllText(pathSettings, newCultureId)
+            Call Application.Restart()
+            Environment.Exit(0)
+        End Sub
 
-			Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(CultureId)
-			Thread.CurrentThread.CurrentUICulture = New CultureInfo(CultureId)
-		End Sub
-	End Class
+        Public Sub RestoreCulture()
+            Dim pathSettings As String = Path.Combine(Directory.GetCurrentDirectory(), "culture.ini")
+            If File.Exists(pathSettings) Then
+                CultureId = File.ReadAllText(pathSettings)
+            Else
+                CultureId = "en"
+            End If
+
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(CultureId)
+            Thread.CurrentThread.CurrentUICulture = New CultureInfo(CultureId)
+        End Sub
+    End Module
 End Namespace

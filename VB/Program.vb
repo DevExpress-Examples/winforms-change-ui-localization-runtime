@@ -1,19 +1,16 @@
-﻿Imports Microsoft.VisualBasic
 Imports System
 Imports System.Windows.Forms
 
 Namespace SchedulerSwitchLocale
-	Friend NotInheritable Class Program
-		Private Sub New()
-		End Sub
-		<STAThread> _
-		Shared Sub Main()
 
-			CultureSwitcher.RestoreCulture()
+    Friend Module Program
 
-			Application.EnableVisualStyles()
-			Application.SetCompatibleTextRenderingDefault(False)
-			Application.Run(New Form1())
-		End Sub
-	End Class
+        <STAThread>
+        Sub Main()
+            RestoreCulture()
+            Call Application.EnableVisualStyles()
+            Application.SetCompatibleTextRenderingDefault(False)
+            Call Application.Run(New Form1())
+        End Sub
+    End Module
 End Namespace
