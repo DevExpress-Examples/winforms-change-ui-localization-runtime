@@ -6,7 +6,7 @@
 
 # How to change UI localization at runtime
 
-Localization-related settings (for example, the culture) should be set at application startup (before control initialization). To change localization settings (for example, the language) you should restart the application. This example shows how to use the [Application.Restart](https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.application.restart?view=windowsdesktop-7.0) to shut down the application and start a new instance immediately.
+Localization-related settings (for example, the culture) should be set at application startup (before control initialization). To change localization settings (for example, the language) you should restart the application. This example shows how to use the [Application.Restart](https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.application.restart?view=windowsdesktop-7.0) method to shut down the application and start a new instance immediately.
 
 > **Note**
 >
